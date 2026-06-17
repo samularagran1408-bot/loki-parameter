@@ -1,38 +1,47 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Explorador de Loki - OMDb API</title>
-    
-    <!-- Metadatos para PWA -->
-    <meta name="theme-color" content="#8B0000">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    
-    <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" href="icons/icon-192.png">
-    <link rel="stylesheet" href="style.css">
+
+    <!-- PWA metadatos -->
+    <meta name="theme-color" content="#8B0000" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <!-- Manifest -->
+    <link rel="manifest" href="manifest.json" />
+
+    <!-- Iconos -->
+    <link rel="apple-touch-icon" href="icons/icon-192.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="icons/icon-512.png" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+    <!-- Video de fondo -->
     <div class="video-background">
         <video autoplay muted loop id="bgVideo">
-            <source src="video/Marvel Studios  Deadpool & Wolverine Intro  2024.mp4" type="video/mp4">
+            <source src="video/Marvel Studios Deadpool & Wolverine Intro 2024.mp4" type="video/mp4" />
         </video>
         <div class="video-overlay"></div>
     </div>
 
     <div class="container">
+        <!-- Cabecera -->
         <div class="header">
             <h1>Explorador de Loki - OMDb API</h1>
-            <p>Consulta informacion de la serie Loki y sus variantes</p>
-            <p><small>API Externa: https://www.omdbapi.com/ | Parametro: Loki</small></p>
+            <p>Consulta información de la serie Loki y sus variantes</p>
+            <p><small>API Externa: https://www.omdbapi.com/ | Parámetro: Loki</small></p>
         </div>
 
+        <!-- Buscador -->
         <div class="search-section">
             <div class="search-container">
-                <input type="text" id="searchInput" placeholder="Buscar contenido relacionado con Loki..." autocomplete="off" value="Loki">
+                <input type="text" id="searchInput" placeholder="Buscar contenido relacionado con Loki..." autocomplete="off" value="Loki" />
                 <button onclick="searchByText()">Buscar en API</button>
             </div>
             <div class="search-filters">
@@ -44,28 +53,17 @@
                 </select>
                 <select id="yearFilter">
                     <option value="">Todos los años</option>
-                    <option value="2025">2025</option>
-                    <option value="2024">2024</option>
-                    <option value="2023">2023</option>
-                    <option value="2022">2022</option>
-                    <option value="2021">2021</option>
-                    <option value="2020">2020</option>
-                    <option value="2019">2019</option>
-                    <option value="2018">2018</option>
-                    <option value="2017">2017</option>
-                    <option value="2016">2016</option>
-                    <option value="2015">2015</option>
-                    <option value="2014">2014</option>
-                    <option value="2013">2013</option>
-                    <option value="2012">2012</option>
-                    <option value="2011">2011</option>
-                    <option value="2010">2010</option>
-                    <option value="2009">2009</option>
-                    <option value="2008">2008</option>
-                    <option value="2007">2007</option>
-                    <option value="2006">2006</option>
-                    <option value="2005">2005</option>
-                    <option value="2004">2004</option>
+                    <option value="2025">2025</option><option value="2024">2024</option>
+                    <option value="2023">2023</option><option value="2022">2022</option>
+                    <option value="2021">2021</option><option value="2020">2020</option>
+                    <option value="2019">2019</option><option value="2018">2018</option>
+                    <option value="2017">2017</option><option value="2016">2016</option>
+                    <option value="2015">2015</option><option value="2014">2014</option>
+                    <option value="2013">2013</option><option value="2012">2012</option>
+                    <option value="2011">2011</option><option value="2010">2010</option>
+                    <option value="2009">2009</option><option value="2008">2008</option>
+                    <option value="2007">2007</option><option value="2006">2006</option>
+                    <option value="2005">2005</option><option value="2004">2004</option>
                     <option value="2003">2003</option>
                 </select>
             </div>
@@ -79,37 +77,39 @@
             </div>
         </div>
 
+        <!-- Menú de consultas rápidas -->
         <div class="menu">
-            <h2>Consultas Rapidas</h2>
+            <h2>Consultas Rápidas</h2>
             <div class="menu-buttons">
-                <button class="menu-btn active" data-menu="search">Busqueda General</button>
+                <button class="menu-btn active" data-menu="search">Búsqueda General</button>
                 <button class="menu-btn" data-menu="episode">Episodios de Loki</button>
-                <button class="menu-btn" data-menu="id">Busqueda por ID</button>
-                <button class="menu-btn" data-menu="year">Busqueda por Año</button>
+                <button class="menu-btn" data-menu="id">Búsqueda por ID</button>
+                <button class="menu-btn" data-menu="year">Búsqueda por Año</button>
             </div>
         </div>
 
-        <div class="selection-area" id="selectionArea">
+        <!-- Instalación PWA -->
+        <div class="install-container" id="installContainer">
+            <p class="install-text">📥 Instala esta aplicación en tu dispositivo</p>
+            <button id="installButton" class="install-btn">Descargar e Instalar App</button>
+            <p class="install-subtext">Funciona sin conexión a internet</p>
         </div>
 
+        <!-- Selección de menú -->
+        <div class="selection-area" id="selectionArea"></div>
+
+        <!-- Resultados -->
         <div class="results-area" id="resultsArea">
             <h2>Resultados de la API externa</h2>
             <div id="resultsContent">
                 <div class="card">
-                    <p style="text-align: center; color: #6c757d;">
-                        Busca contenido relacionado con Loki usando la barra de busqueda
-                    </p>
-                    <p style="text-align: center; color: #6c757d; font-size: 0.9em; margin-top: 10px;">
-                        La API de OMDb encontro 35 resultados para el parametro Loki
-                    </p>
+                    <p style="text-align:center; color:#6c757d;">Busca contenido relacionado con Loki usando la barra de búsqueda</p>
+                    <p style="text-align:center; color:#6c757d; font-size:0.9em; margin-top:10px;">La API de OMDb encontró 35 resultados para el parámetro Loki</p>
                 </div>
             </div>
         </div>
     </div>
 
     <script src="script.js"></script>
-    <!-- Polyfill para navegadores antiguos -->
-    <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/whatwg-fetch@3.6.2/dist/fetch.umd.min.js"></script>
 </body>
 </html>
