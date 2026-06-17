@@ -169,19 +169,25 @@ body {
     background: #FFD700;
     color: #8B0000;
 }
+
+/*
+   INSTALACIÓN PWA
+ */
 .install-container {
     display: none;
     text-align: center;
     padding: 18px 20px;
-    background: rgba(255,215,0,0.12);
+    background: rgba(255, 215, 0, 0.12);
     border-bottom: 2px solid #FFD700;
 }
+
 .install-text {
     color: #8B0000;
     font-weight: bold;
     margin-bottom: 8px;
     font-size: 1.1em;
 }
+
 .install-btn {
     padding: 12px 35px;
     background: #8B0000;
@@ -193,16 +199,26 @@ body {
     font-weight: bold;
     transition: 0.3s;
 }
+
 .install-btn:hover {
     background: #FFD700;
     color: #8B0000;
     transform: scale(1.05);
 }
+
 .install-subtext {
     color: #6c757d;
     font-size: 0.85em;
     margin-top: 8px;
 }
+
+/* Ocultar botón cuando la app ya está instalada */
+@media all and (display-mode: standalone) {
+    .install-container {
+        display: none !important;
+    }
+}
+
 @media all and (display-mode: standalone) {
     .install-container { display: none !important; }
 }
@@ -436,5 +452,75 @@ select {
     }
     .search-filters {
         flex-direction: column;
+    }
+}
+
+/* Footer entrega PWA */
+.app-footer {
+    background: linear-gradient(135deg, #5C0000, #8B0000);
+    color: #f0f0f0;
+    padding: 24px 30px;
+    border-top: 3px solid #FFD700;
+    text-align: left;
+}
+
+.footer-subject {
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 215, 0, 0.35);
+}
+
+.footer-body-title {
+    color: #FFD700;
+    font-weight: bold;
+    font-size: 0.95em;
+    margin-bottom: 12px;
+}
+
+.footer-info {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.footer-info li {
+    font-size: 0.95em;
+    line-height: 1.5;
+    padding: 8px 12px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    border-left: 3px solid #FFD700;
+}
+
+.footer-label {
+    color: #FFD700;
+    font-weight: bold;
+    margin-right: 6px;
+}
+
+.footer-value {
+    color: #fff;
+}
+
+.footer-link {
+    color: #FFD700;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s, text-decoration 0.3s;
+}
+
+.footer-link:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .app-footer {
+        padding: 20px 16px;
+    }
+
+    .footer-info li {
+        font-size: 0.88em;
     }
 }

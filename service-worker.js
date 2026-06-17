@@ -1,25 +1,22 @@
-const CACHE_NAME = 'loki-explorer-v1.0';
+const CACHE_NAME = 'loki-explorer-v1.3';
 const urlsToCache = [
-    './',
-    './index.html',
-    './style.css',
-    './script.js',
-    './manifest.json',
-    './video/Marvel Studios Deadpool & Wolverine Intro 2024.mp4',
-    './icons/icon-72.png',
-    './icons/icon-96.png',
-    './icons/icon-128.png',
-    './icons/icon-144.png',
-    './icons/icon-152.png',
-    './icons/icon-192.png',
-    './icons/icon-384.png',
-    './icons/icon-512.png'
+    '/',
+    '/index.html',
+    '/style.css',
+    '/script.js',
+    '/manifest.json',
+    '/icons/icon-192.png',
+    '/icons/icon-512.png',
 ];
 
 self.addEventListener('install', event => {
     event.waitUntil(
         caches.open(CACHE_NAME)
-            .then(cache => cache.addAll(urlsToCache))
+            .then(cache => Promise.all(
+                urlsToCache.map(url =>
+                    cache.add(url).catch(err => console.warn('No cacheado:', url, err))
+                )
+            ))
             .then(() => self.skipWaiting())
     );
 });
@@ -37,6 +34,7 @@ self.addEventListener('activate', event => {
 });
 
 self.addEventListener('fetch', event => {
+    if (event.request.method !== 'GET') return;
     event.respondWith(
         caches.match(event.request)
             .then(response => response || fetch(event.request).then(res => {

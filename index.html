@@ -11,9 +11,9 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
     <!-- Manifest -->
-    <link rel="manifest" href="manifest.json" />
+    <link rel="manifest" href="/manifest.json" />
 
-    <!-- Iconos -->
+    <!-- Iconos PWA (ubicación: icons/icon-192.png y icons/icon-512.png) -->
     <link rel="apple-touch-icon" href="icons/icon-192.png" />
     <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png" />
     <link rel="icon" type="image/png" sizes="512x512" href="icons/icon-512.png" />
@@ -25,7 +25,7 @@
     <!-- Video de fondo -->
     <div class="video-background">
         <video autoplay muted loop id="bgVideo">
-            <source src="video/Marvel Studios Deadpool & Wolverine Intro 2024.mp4" type="video/mp4" />
+            <source src="video/Marvel Studios  Deadpool & Wolverine Intro  2024.mp4" type="video/mp4" />
         </video>
         <div class="video-overlay"></div>
     </div>
@@ -108,8 +108,36 @@
                 </div>
             </div>
         </div>
+
+        <!-- Footer entrega PWA -->
+        <footer class="app-footer">
+            <div class="footer-subject">
+                <span class="footer-label">Asunto:</span>
+                <span class="footer-value">Entrega PWA - Loki</span>
+            </div>
+            <div class="footer-body">
+                <p class="footer-body-title">Cuerpo del mensaje:</p>
+                <ul class="footer-info">
+                    <li><span class="footer-label">Nombre del aprendiz:</span> Samuel Lara Grandas</li>
+                    <li><span class="footer-label">Tema asignado:</span> Parámetro Loki</li>
+                    <li>
+                        <span class="footer-label">Enlace de la aplicación:</span>
+                        <a href="http://127.0.0.1:5501/index.html" class="footer-link" target="_blank" rel="noopener noreferrer">http://127.0.0.1:5501/index.html</a>
+                    </li>
+                </ul>
+            </div>
+        </footer>
     </div>
 
     <script src="script.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+                navigator.serviceWorker.register('/service-worker.js', { scope: '/' })
+                    .then(function (reg) { console.log('Service Worker registrado:', reg.scope); })
+                    .catch(function (err) { console.error('Error al registrar Service Worker:', err); });
+            });
+        }
+    </script>
 </body>
-</html>
+</html> 

@@ -261,46 +261,45 @@ function displayError(message) {
 
 // INSTALACIÓN PWA
 let deferredPrompt = null;
-const installContainer = document.getElementById('installContainer');
-const installButton = document.getElementById('installButton');
+
+function mostrarBotonInstalacion() {
+    const container = document.getElementById('installContainer');
+    if (container && !window.matchMedia('(display-mode: standalone)').matches) {
+        container.style.display = 'block';
+    }
+}
+
+function ocultarBotonInstalacion() {
+    const container = document.getElementById('installContainer');
+    if (container) container.style.display = 'none';
+}
 
 window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredPrompt = e;
-    if (installContainer) installContainer.style.display = 'block';
+    mostrarBotonInstalacion();
 });
 
-if (installButton) {
+window.addEventListener('appinstalled', () => {
+    deferredPrompt = null;
+    ocultarBotonInstalacion();
+});
+
+function setupInstallButton() {
+    const installButton = document.getElementById('installButton');
+    if (!installButton) return;
     installButton.addEventListener('click', async () => {
         if (deferredPrompt) {
             deferredPrompt.prompt();
-            const result = await deferredPrompt.userChoice;
-            if (result.outcome === 'accepted') {
-                if (installContainer) installContainer.style.display = 'none';
-            }
+            const { outcome } = await deferredPrompt.userChoice;
+            if (outcome === 'accepted') ocultarBotonInstalacion();
             deferredPrompt = null;
+        } else {
+            alert('Usa el icono de instalar (⊕) en la barra de direcciones, o abre el menú del navegador (⋮) y selecciona "Instalar aplicación".');
         }
     });
 }
 
-window.addEventListener('appinstalled', () => {
-    if (installContainer) installContainer.style.display = 'none';
-});
-
-if (window.matchMedia('(display-mode: standalone)').matches) {
-    if (installContainer) installContainer.style.display = 'none';
-}
-
-// REGISTRO SERVICE WORKER
-function registerServiceWorker() {
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js', { scope: '/' })
-            .then(() => console.log('Service Worker registrado'))
-            .catch(err => console.error('Error SW:', err));
-    }
-}
-
-// INICIALIZACIÓN
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('searchInput')?.addEventListener('keypress', e => {
         if (e.key === 'Enter') searchByText();
@@ -311,5 +310,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     renderSelectionArea();
-    registerServiceWorker();
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+        ocultarBotonInstalacion();
+    }
+    setupInstallButton();
 });
