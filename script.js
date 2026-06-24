@@ -264,14 +264,18 @@ let deferredPrompt = null;
 
 function mostrarBotonInstalacion() {
     const container = document.getElementById('installContainer');
+    const helpText = document.getElementById('installHelp');
     if (container && !window.matchMedia('(display-mode: standalone)').matches) {
         container.style.display = 'block';
+        if (helpText) helpText.style.display = 'block';
     }
 }
 
 function ocultarBotonInstalacion() {
     const container = document.getElementById('installContainer');
+    const helpText = document.getElementById('installHelp');
     if (container) container.style.display = 'none';
+    if (helpText) helpText.style.display = 'none';
 }
 
 window.addEventListener('beforeinstallprompt', (e) => {

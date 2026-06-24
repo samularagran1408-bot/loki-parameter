@@ -98,15 +98,37 @@ body {
     font-size: 16px;
     font-weight: bold;
     transition: 0.3s;
+    min-width: 170px;
 }
 .search-container button:hover {
     background: #FFD700;
     color: #8B0000;
 }
+.search-help {
+    padding: 16px;
+    margin-bottom: 15px;
+    border-radius: 12px;
+    background: #fff8e1;
+    border: 1px solid #ffecb3;
+    color: #3b2f2f;
+}
+.search-help p {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+.search-help ul {
+    list-style: disc inside;
+    line-height: 1.7;
+    color: #4b3a2a;
+}
+.search-help li {
+    margin-bottom: 5px;
+}
 .search-filters {
     display: flex;
     gap: 10px;
     margin-bottom: 15px;
+    flex-wrap: wrap;
 }
 .search-filters select {
     padding: 10px;
@@ -137,13 +159,17 @@ body {
     border-color: #8B0000;
 }
 .menu {
-    background: rgba(30,30,40,0.95);
+    background: rgba(245, 245, 245, 0.95);
     padding: 20px;
-    border-bottom: 2px solid #FFD700;
+    border-bottom: 2px solid #8B0000;
 }
 .menu h2 {
-    color: #FFD700;
+    color: #8B0000;
     margin-bottom: 15px;
+}
+.menu p {
+    color: #6c757d;
+    margin-top: 8px;
 }
 .menu-buttons {
     display: flex;
@@ -210,6 +236,12 @@ body {
     color: #6c757d;
     font-size: 0.85em;
     margin-top: 8px;
+}
+.install-help {
+    color: #5a2f00;
+    font-size: 0.85em;
+    margin-top: 8px;
+    display: none;
 }
 
 /* Ocultar botón cuando la app ya está instalada */
@@ -452,6 +484,13 @@ select {
     }
     .search-filters {
         flex-direction: column;
+    }
+    .result-item {
+        flex-direction: column;
+        align-items: center;
+    }
+    .result-info {
+        text-align: center;
     }
 }
 

@@ -1,12 +1,12 @@
 const CACHE_NAME = 'loki-explorer-v1.3';
 const urlsToCache = [
-    '/',
-    '/index.html',
-    '/style.css',
-    '/script.js',
-    '/manifest.json',
-    '/icons/icon-192.png',
-    '/icons/icon-512.png',
+    './',
+    'index.html',
+    'style.css',
+    'script.js',
+    'manifest.json',
+    'icons/icon-192.png',
+    'icons/icon-512.png',
 ];
 
 self.addEventListener('install', event => {
@@ -14,7 +14,7 @@ self.addEventListener('install', event => {
         caches.open(CACHE_NAME)
             .then(cache => Promise.all(
                 urlsToCache.map(url =>
-                    cache.add(url).catch(err => console.warn('No cacheado:', url, err))
+                    cache.add(new Request(url, { cache: 'reload' })).catch(err => console.warn('No cacheado:', url, err))
                 )
             ))
             .then(() => self.skipWaiting())

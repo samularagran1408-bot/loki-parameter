@@ -11,12 +11,12 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
     <!-- Manifest -->
-    <link rel="manifest" href="/manifest.json" />
+    <link rel="manifest" href="./manifest.json" />
 
     <!-- Iconos PWA (ubicación: icons/icon-192.png y icons/icon-512.png) -->
-    <link rel="apple-touch-icon" href="icons/icon-192.png" />
-    <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png" />
-    <link rel="icon" type="image/png" sizes="512x512" href="icons/icon-512.png" />
+    <link rel="apple-touch-icon" href="./icons/icon-192.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="./icons/icon-512.png" />
 
     <!-- CSS -->
     <link rel="stylesheet" href="style.css" />
@@ -67,6 +67,14 @@
                     <option value="2003">2003</option>
                 </select>
             </div>
+            <div class="search-help">
+                <p>Para buscar más rápido:</p>
+                <ul>
+                    <li>Escribe términos claros y presiona Enter o Buscar.</li>
+                    <li>Usa los filtros para tipo y año si quieres resultados más precisos.</li>
+                    <li>Toca una sugerencia para obtener un resultado directo.</li>
+                </ul>
+            </div>
             <div class="search-suggestions">
                 <span class="suggestion" onclick="searchSuggestion('Loki')">Loki (2021-2023)</span>
                 <span class="suggestion" onclick="searchSuggestion('The Good, the Bart, and the Loki')">The Good, the Bart, and the Loki</span>
@@ -93,6 +101,7 @@
             <p class="install-text">📥 Instala esta aplicación en tu dispositivo</p>
             <button id="installButton" class="install-btn">Descargar e Instalar App</button>
             <p class="install-subtext">Funciona sin conexión a internet</p>
+            <p class="install-help" id="installHelp">Si no aparece el botón de instalar, abre el menú del navegador y selecciona "Instalar aplicación".</p>
         </div>
 
         <!-- Selección de menú -->
@@ -122,7 +131,7 @@
                     <li><span class="footer-label">Tema asignado:</span> Parámetro Loki</li>
                     <li>
                         <span class="footer-label">Enlace de la aplicación:</span>
-                        <a href="http://127.0.0.1:5501/index.html" class="footer-link" target="_blank" rel="noopener noreferrer">http://127.0.0.1:5501/index.html</a>
+                        <a href="./index.html" class="footer-link" target="_blank" rel="noopener noreferrer">./index.html</a>
                     </li>
                 </ul>
             </div>
@@ -133,7 +142,7 @@
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function () {
-                navigator.serviceWorker.register('/service-worker.js', { scope: '/' })
+                navigator.serviceWorker.register('./service-worker.js')
                     .then(function (reg) { console.log('Service Worker registrado:', reg.scope); })
                     .catch(function (err) { console.error('Error al registrar Service Worker:', err); });
             });
