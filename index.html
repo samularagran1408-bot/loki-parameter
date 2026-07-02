@@ -10,22 +10,17 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-    <!-- Manifest -->
-    <link rel="manifest" href="./manifest.json" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="icons/icon-192.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="icons/icon-512.png" />
 
-    <!-- Iconos PWA (ubicación: icons/icon-192.png y icons/icon-512.png) -->
-    <link rel="apple-touch-icon" href="./icons/icon-192.png" />
-    <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png" />
-    <link rel="icon" type="image/png" sizes="512x512" href="./icons/icon-512.png" />
-
-    <!-- CSS -->
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <!-- Video de fondo -->
     <div class="video-background">
         <video autoplay muted loop id="bgVideo">
-            <source src="video/Marvel Studios  Deadpool & Wolverine Intro  2024.mp4" type="video/mp4" />
+            <source src="video/Marvel Studios Deadpool & Wolverine Intro 2024.mp4" type="video/mp4" />
         </video>
         <div class="video-overlay"></div>
     </div>
@@ -33,120 +28,57 @@
     <div class="container">
         <!-- Cabecera -->
         <div class="header">
-            <h1>Explorador de Loki - OMDb API</h1>
-            <p>Consulta información de la serie Loki y sus variantes</p>
+            <h1>🪄 Explorador de Loki - OMDb API</h1>
+            <p>Consulta información de la serie Loki y sus variantes por año</p>
             <p><small>API Externa: https://www.omdbapi.com/ | Parámetro: Loki</small></p>
         </div>
 
-        <!-- Buscador -->
+        <!-- Buscador (solo Loki) -->
         <div class="search-section">
             <div class="search-container">
-                <input type="text" id="searchInput" placeholder="Buscar contenido relacionado con Loki..." autocomplete="off" value="Loki" />
-                <button onclick="searchByText()">Buscar en API</button>
-            </div>
-            <div class="search-filters">
-                <select id="typeFilter">
-                    <option value="">Todos los tipos</option>
-                    <option value="series">Series</option>
-                    <option value="movie">Películas</option>
-                    <option value="episode">Episodios</option>
-                </select>
-                <select id="yearFilter">
-                    <option value="">Todos los años</option>
-                    <option value="2025">2025</option><option value="2024">2024</option>
-                    <option value="2023">2023</option><option value="2022">2022</option>
-                    <option value="2021">2021</option><option value="2020">2020</option>
-                    <option value="2019">2019</option><option value="2018">2018</option>
-                    <option value="2017">2017</option><option value="2016">2016</option>
-                    <option value="2015">2015</option><option value="2014">2014</option>
-                    <option value="2013">2013</option><option value="2012">2012</option>
-                    <option value="2011">2011</option><option value="2010">2010</option>
-                    <option value="2009">2009</option><option value="2008">2008</option>
-                    <option value="2007">2007</option><option value="2006">2006</option>
-                    <option value="2005">2005</option><option value="2004">2004</option>
-                    <option value="2003">2003</option>
-                </select>
-            </div>
-            <div class="search-help">
-                <p>Para buscar más rápido:</p>
-                <ul>
-                    <li>Escribe términos claros y presiona Enter o Buscar.</li>
-                    <li>Usa los filtros para tipo y año si quieres resultados más precisos.</li>
-                    <li>Toca una sugerencia para obtener un resultado directo.</li>
-                </ul>
+                <input type="text" id="searchInput" placeholder="Buscar información de Loki..." autocomplete="off" value="Loki" readonly />
+                <button onclick="buscarLoki()">Buscar en API</button>
             </div>
             <div class="search-suggestions">
-                <span class="suggestion" onclick="searchSuggestion('Loki')">Loki (2021-2023)</span>
-                <span class="suggestion" onclick="searchSuggestion('The Good, the Bart, and the Loki')">The Good, the Bart, and the Loki</span>
-                <span class="suggestion" onclick="searchSuggestion('Thor & Loki: Blood Brothers')">Thor & Loki: Blood Brothers</span>
-                <span class="suggestion" onclick="searchSuggestion('Mythical Detective Loki Ragnarok')">Mythical Detective Loki Ragnarok</span>
-                <span class="suggestion" onclick="searchSuggestion('Loki 7')">Loki 7</span>
-                <span class="suggestion" onclick="searchSuggestion('LEGO Marvel Avengers: Loki in Training')">LEGO Marvel Avengers</span>
+                <span class="suggestion" onclick="buscarLoki()">🪄 Loki (2021-2023)</span>
+                <span class="suggestion" onclick="buscarPorTermino('The Good, the Bart, and the Loki')">The Good, the Bart, and the Loki</span>
+                <span class="suggestion" onclick="buscarPorTermino('Thor & Loki: Blood Brothers')">Thor & Loki: Blood Brothers</span>
+                <span class="suggestion" onclick="buscarPorTermino('Mythical Detective Loki Ragnarok')">Mythical Detective Loki Ragnarok</span>
+                <span class="suggestion" onclick="buscarPorTermino('Loki 7')">Loki 7</span>
+                <span class="suggestion" onclick="buscarPorTermino('LEGO Marvel Avengers: Loki in Training')">LEGO Marvel Avengers</span>
             </div>
         </div>
 
-        <!-- Menú de consultas rápidas -->
+        <!-- Menú de búsqueda por año -->
         <div class="menu">
-            <h2>Consultas Rápidas</h2>
+            <h2>📅 Búsqueda por Año</h2>
             <div class="menu-buttons">
-                <button class="menu-btn active" data-menu="search">Búsqueda General</button>
-                <button class="menu-btn" data-menu="episode">Episodios de Loki</button>
-                <button class="menu-btn" data-menu="id">Búsqueda por ID</button>
-                <button class="menu-btn" data-menu="year">Búsqueda por Año</button>
+                <button class="menu-btn active" data-menu="year">Seleccionar Año</button>
             </div>
         </div>
+
+        <!-- Área de selección de año -->
+        <div class="selection-area" id="selectionArea"></div>
 
         <!-- Instalación PWA -->
         <div class="install-container" id="installContainer">
             <p class="install-text">📥 Instala esta aplicación en tu dispositivo</p>
             <button id="installButton" class="install-btn">Descargar e Instalar App</button>
             <p class="install-subtext">Funciona sin conexión a internet</p>
-            <p class="install-help" id="installHelp">Si no aparece el botón de instalar, abre el menú del navegador y selecciona "Instalar aplicación".</p>
         </div>
-
-        <!-- Selección de menú -->
-        <div class="selection-area" id="selectionArea"></div>
 
         <!-- Resultados -->
         <div class="results-area" id="resultsArea">
-            <h2>Resultados de la API externa</h2>
+            <h2>📊 Información de Loki</h2>
             <div id="resultsContent">
                 <div class="card">
-                    <p style="text-align:center; color:#6c757d;">Busca contenido relacionado con Loki usando la barra de búsqueda</p>
+                    <p style="text-align:center; color:#6c757d;">Haz clic en "Buscar en API" para ver la información de Loki</p>
                     <p style="text-align:center; color:#6c757d; font-size:0.9em; margin-top:10px;">La API de OMDb encontró 35 resultados para el parámetro Loki</p>
                 </div>
             </div>
         </div>
-
-        <!-- Footer entrega PWA -->
-        <footer class="app-footer">
-            <div class="footer-subject">
-                <span class="footer-label">Asunto:</span>
-                <span class="footer-value">Entrega PWA - Loki</span>
-            </div>
-            <div class="footer-body">
-                <p class="footer-body-title">Cuerpo del mensaje:</p>
-                <ul class="footer-info">
-                    <li><span class="footer-label">Nombre del aprendiz:</span> Samuel Lara Grandas</li>
-                    <li><span class="footer-label">Tema asignado:</span> Parámetro Loki</li>
-                    <li>
-                        <span class="footer-label">Enlace de la aplicación:</span>
-                        <a href="./index.html" class="footer-link" target="_blank" rel="noopener noreferrer">./index.html</a>
-                    </li>
-                </ul>
-            </div>
-        </footer>
     </div>
 
     <script src="script.js"></script>
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function () {
-                navigator.serviceWorker.register('./service-worker.js')
-                    .then(function (reg) { console.log('Service Worker registrado:', reg.scope); })
-                    .catch(function (err) { console.error('Error al registrar Service Worker:', err); });
-            });
-        }
-    </script>
 </body>
-</html> 
+</html>
